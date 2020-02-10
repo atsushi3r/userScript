@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Add Copy Buttons to Pre Tags
 // @namespace    add_copy_buttons_to_pre_tags
-// @version      1.2
+// @version      1.3
 // @description  Add copy buttons to pre tags
 // @author       atsushi3r
 // @match        *://*/*
