@@ -42,6 +42,7 @@ button.add-copy-buttons-to-pre-tags-btn {
     min-height: 24px;
     width: 22px;
     padding: 5px 4px;
+    margin: 5px;
     outline: none;
     z-index: 9;
 }
