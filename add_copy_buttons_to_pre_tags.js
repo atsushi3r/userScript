@@ -30,19 +30,13 @@
 
 button.add-copy-buttons-to-pre-tags-btn {
     color: #aaa;
-    font-size: 14px;
     position: absolute;
     right: 0;
     border: none;
-    border-radius: 5px;
-    background-color: #fefef6;
+    background: none;
     box-shadow: none;
     white-space: nowrap;
-    line-height: 14px;
-    height: 24px;
-    min-height: 24px;
-    width: 22px;
-    padding: 5px 4px;
+    line-height: 1;
     margin: 5px;
     outline: none;
     z-index: 9;
@@ -50,7 +44,7 @@ button.add-copy-buttons-to-pre-tags-btn {
 
 button.add-copy-buttons-to-pre-tags-btn:hover, button.add-copy-buttons-to-pre-tags-btn:focus {
     color: #666;
-    background-color: #fefef6;
+    background: none;
     box-shadow: none;
 }
 
@@ -60,7 +54,14 @@ button.add-copy-buttons-to-pre-tags-btn:active {
 
 
 button.add-copy-buttons-to-pre-tags-btn > i.material-icons {
-    font-size: 14px;
+    font-size: 18px;
+    text-shadow: 1px  1px  0px #fefef6,
+                 -1px 1px  0px #fefef6,
+                 1px  -1px 0px #fefef6,
+                 -1px -1px 0px #fefef6,
+                 1px  0    0   #fefef6,
+                 0    1px  0   #fefef6;
+    padding: 2px;
 }
 
 span.add-copy-buttons-to-pre-tags-balloon {
@@ -71,6 +72,7 @@ span.add-copy-buttons-to-pre-tags-balloon {
     width: 45px;
     display: none;
     padding: 5px;
+    margin-top: 1px;
     opacity: 0;
     border-radius: 5px;
     color: #fefef6;
