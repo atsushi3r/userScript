@@ -31,7 +31,7 @@ button.add-copy-buttons-to-pre-tags-btn {
     color: #aaa;
     font-size: 14px;
     position: absolute;
-    right: 5px;
+    right: 0;
     border: none;
     border-radius: 5px;
     background-color: #fefef6;
@@ -42,6 +42,7 @@ button.add-copy-buttons-to-pre-tags-btn {
     min-height: 24px;
     width: 22px;
     padding: 5px 4px;
+    margin: 5px;
     outline: none;
     z-index: 9;
 }
@@ -130,12 +131,13 @@ button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tag
         btn.addEventListener('blur', resetBalloon, false);
         let parent = pre.parentElement;
         if (window.getComputedStyle(parent).overflow !== 'visible') {
-            parent = parent.parentElement;
+            let grandparent = parent.parentElement;
+            grandparent.classList.add('add-copy-buttons-to-pre-tags-parent');
+            grandparent.insertBefore(btn, parent);
+        } else {
+            parent.classList.add('add-copy-buttons-to-pre-tags-parent');
+            parent.insertBefore(btn, pre);
         }
-        parent.classList.add('add-copy-buttons-to-pre-tags-parent');
-        parent.insertBefore(btn, parent.firstChild);
     });
     d.getSelection().empty();
-
 })(document);
-
