@@ -6,6 +6,7 @@
 // @author       atsushi3r
 // @match        *://*/*
 // @grant        none
+// @run-at       document-end
 // @noframes
 // ==/UserScript==
 
