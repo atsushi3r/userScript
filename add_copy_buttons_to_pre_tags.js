@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Add Copy Buttons to Pre Tags
 // @namespace    add_copy_buttons_to_pre_tags
-// @version      1.0
+// @version      1.1
 // @description  Add copy buttons to pre tags
 // @author       atsushi3r
 // @match        *://*/*
@@ -11,18 +11,18 @@
 
 (function (d) {
     'use strict';
-        console.log('UserScript: Add Copy Buttons to Pre Tags');
-        let pres = d.getElementsByTagName('pre');
-        if (pres.length < 1) {
-            return;
-        }
-        let linkMaterialIcon = d.createElement('link');
-        linkMaterialIcon.setAttribute('rel', 'stylesheet');
-        linkMaterialIcon.setAttribute('href', 'https://fonts.googleapis.com/icon?family=Material+Icons');
-        let head = d.getElementsByTagName('head')[0];
-        head.appendChild(linkMaterialIcon);
-        let style = d.createElement('style');
-        style.innerHTML = `
+    console.log('UserScript: Add Copy Buttons to Pre Tags');
+    let pres = d.getElementsByTagName('pre');
+    if (pres.length < 1) {
+        return;
+    }
+    let linkMaterialIcon = d.createElement('link');
+    linkMaterialIcon.setAttribute('rel', 'stylesheet');
+    linkMaterialIcon.setAttribute('href', 'https://fonts.googleapis.com/icon?family=Material+Icons');
+    let head = d.getElementsByTagName('head')[0];
+    head.appendChild(linkMaterialIcon);
+    let style = d.createElement('style');
+    style.innerHTML = `
 .add-copy-buttons-to-pre-tags-parent {
     position: relative;
 }
@@ -31,7 +31,7 @@ button.add-copy-buttons-to-pre-tags-btn {
     color: #aaa;
     font-size: 14px;
     position: absolute;
-    right: 0;
+    right: 5px;
     border: none;
     border-radius: 5px;
     background-color: #fefef6;
@@ -100,39 +100,42 @@ button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tag
 }
 
 `;
-        head.appendChild(style);
+    head.appendChild(style);
 
-        function copyPreContent(event) {
-            event.preventDefault();
-            let target = this.parentElement.querySelector('.add-copy-buttons-to-pre-tags-target');
-            d.getSelection().selectAllChildren(target);
-            d.execCommand('copy');
-            d.getSelection().empty();
-            this.querySelector('span > span:first-child').style.display = 'none';
-            this.querySelector('span > span:last-child').style.display = 'block';
-        }
-
-        function resetBalloon(event) {
-            this.querySelector('span > span:first-child').style.display = 'block';
-            this.querySelector('span > span:last-child').style.display = 'none';
-        }
-
-        Array.prototype.forEach.call(pres, pre => {
-            if (pre.style.display === 'none') {
-                return;
-            }
-            pre.classList.add('add-copy-buttons-to-pre-tags-target');
-            let btn = d.createElement('button');
-            btn.innerHTML = '<i class="material-icons">content_copy</i><span class="add-copy-buttons-to-pre-tags-balloon"><span>Copy</span><span style="display:none;">Done!</span></span>';
-            btn.className = 'add-copy-buttons-to-pre-tags-btn';
-            btn.tabIndex = -1;
-            btn.addEventListener('click', copyPreContent, false);
-            btn.addEventListener('blur', resetBalloon, false);
-            let parent = pre.parentElement;
-            parent.classList.add('add-copy-buttons-to-pre-tags-parent');
-            parent.insertBefore(btn, pre);
-        });
+    function copyPreContent(event) {
+        event.preventDefault();
+        let target = this.parentElement.querySelector('.add-copy-buttons-to-pre-tags-target');
+        d.getSelection().selectAllChildren(target);
+        d.execCommand('copy');
         d.getSelection().empty();
+        this.querySelector('span > span:first-child').style.display = 'none';
+        this.querySelector('span > span:last-child').style.display = 'block';
+    }
+
+    function resetBalloon(event) {
+        this.querySelector('span > span:first-child').style.display = 'block';
+        this.querySelector('span > span:last-child').style.display = 'none';
+    }
+
+    Array.prototype.forEach.call(pres, pre => {
+        if (pre.style.display === 'none') {
+            return;
+        }
+        pre.classList.add('add-copy-buttons-to-pre-tags-target');
+        let btn = d.createElement('button');
+        btn.innerHTML = '<i class="material-icons">content_copy</i><span class="add-copy-buttons-to-pre-tags-balloon"><span>Copy</span><span style="display:none;">Done!</span></span>';
+        btn.className = 'add-copy-buttons-to-pre-tags-btn';
+        btn.tabIndex = -1;
+        btn.addEventListener('click', copyPreContent, false);
+        btn.addEventListener('blur', resetBalloon, false);
+        let parent = pre.parentElement;
+        if (window.getComputedStyle(parent).overflow !== 'visible') {
+            parent = parent.parentElement;
+        }
+        parent.classList.add('add-copy-buttons-to-pre-tags-parent');
+        parent.insertBefore(btn, parent.firstChild);
+    });
+    d.getSelection().empty();
 
 })(document);
 
