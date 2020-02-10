@@ -17,6 +17,7 @@
     if (pres.length < 1) {
         return;
     }
+
     let linkMaterialIcon = d.createElement('link');
     linkMaterialIcon.setAttribute('rel', 'stylesheet');
     linkMaterialIcon.setAttribute('href', 'https://fonts.googleapis.com/icon?family=Material+Icons');
@@ -29,7 +30,6 @@
 }
 
 button.add-copy-buttons-to-pre-tags-btn {
-    color: #aaa;
     position: absolute;
     right: 0;
     border: none;
@@ -42,25 +42,32 @@ button.add-copy-buttons-to-pre-tags-btn {
     z-index: 9;
 }
 
-button.add-copy-buttons-to-pre-tags-btn:hover, button.add-copy-buttons-to-pre-tags-btn:focus {
-    color: #666;
+button.add-copy-buttons-to-pre-tags-btn.dark {
+    color: #fefef6;
+}
+
+button.add-copy-buttons-to-pre-tags-btn.light {
+    color: #555;
+}
+
+button.add-copy-buttons-to-pre-tags-btn.dark:hover, button.add-copy-buttons-to-pre-tags-btn.dark:focus {
+    color: #ddd;
     background: none;
     box-shadow: none;
 }
 
-button.add-copy-buttons-to-pre-tags-btn:active {
-    color:#333;
+button.add-copy-buttons-to-pre-tags-btn.light:hover, button.add-copy-buttons-to-pre-tags-btn.light:focus {
+    color: #888;
+    background: none;
+    box-shadow: none;
 }
 
+button.add-copy-buttons-to-pre-tags-btn.dark:active, button.add-copy-buttons-to-pre-tags-btn.light:active {
+    color:#aaa;
+}
 
 button.add-copy-buttons-to-pre-tags-btn > i.material-icons {
     font-size: 18px;
-    text-shadow: 1px  1px  0px #fefef6,
-                 -1px 1px  0px #fefef6,
-                 1px  -1px 0px #fefef6,
-                 -1px -1px 0px #fefef6,
-                 1px  0    0   #fefef6,
-                 0    1px  0   #fefef6;
     padding: 2px;
 }
 
@@ -75,9 +82,17 @@ span.add-copy-buttons-to-pre-tags-balloon {
     margin-top: 1px;
     opacity: 0;
     border-radius: 5px;
+    animation: 0.3s ease show-balloon;
+}
+
+button.add-copy-buttons-to-pre-tags-btn.dark > span.add-copy-buttons-to-pre-tags-balloon {
+    color: #555;
+    background-color: #fefef6;
+}
+
+button.add-copy-buttons-to-pre-tags-btn.light > span.add-copy-buttons-to-pre-tags-balloon {
     color: #fefef6;
     background-color: #555;
-    animation: 0.3s ease show-balloon;
 }
 
 button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tags-balloon {
@@ -128,7 +143,15 @@ button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tag
         pre.classList.add('add-copy-buttons-to-pre-tags-target');
         let btn = d.createElement('button');
         btn.innerHTML = '<i class="material-icons">content_copy</i><span class="add-copy-buttons-to-pre-tags-balloon"><span>Copy</span><span style="display:none;">Done!</span></span>';
-        btn.className = 'add-copy-buttons-to-pre-tags-btn';
+        let brightness =
+            window.getComputedStyle(pre).backgroundColor
+                .match(/[0-9]+\.?[0-9]*/g)
+                .reduce((avg, str) => {return avg + Number(str)/3}, 0);
+        if (brightness < 128) {
+            btn.className = 'add-copy-buttons-to-pre-tags-btn dark';
+        } else {
+            btn.className = 'add-copy-buttons-to-pre-tags-btn light';
+        }
         btn.tabIndex = -1;
         btn.addEventListener('click', copyPreContent, false);
         btn.addEventListener('blur', resetBalloon, false);
