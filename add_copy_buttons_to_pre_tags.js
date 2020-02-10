@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Add Copy Buttons to Pre Tags
 // @namespace    add_copy_buttons_to_pre_tags
-// @version      1.0
+// @version      1.1
 // @description  Add copy buttons to pre tags
 // @author       atsushi3r
 // @match        *://*/*
@@ -130,8 +130,15 @@ button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tag
         btn.addEventListener('click', copyPreContent, false);
         btn.addEventListener('blur', resetBalloon, false);
         let parent = pre.parentElement;
-        parent.classList.add('add-copy-buttons-to-pre-tags-parent');
-        parent.insertBefore(btn, pre);
+        if (window.getComputedStyle(parent).overflow !== 'visible') {
+            let grandparent = parent.parentElement;
+            grandparent.classList.add('add-copy-buttons-to-pre-tags-parent');
+            grandparent.insertBefore(btn, parent);
+        } else {
+            parent.classList.add('add-copy-buttons-to-pre-tags-parent');
+            parent.insertBefore(btn, pre);
+        }
+>>>>>>> check_hidden_parent
     });
     d.getSelection().empty();
 })(document);
