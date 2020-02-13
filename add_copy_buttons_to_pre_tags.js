@@ -124,7 +124,8 @@ button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tag
 
     function copyPreContent(event) {
         event.preventDefault();
-        let target = this.parentElement.querySelector('.add-copy-buttons-to-pre-tags-target');
+        let id = this.getAttribute('add-copy-buttons-to-pre-tags-id');
+        let target = this.parentElement.querySelector(`pre[add-copy-buttons-to-pre-tags-id="${id}"]`);
         d.getSelection().selectAllChildren(target);
         d.execCommand('copy');
         d.getSelection().empty();
@@ -137,15 +138,16 @@ button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tag
         this.querySelector('span > span:last-child').style.display = 'none';
     }
 
-    Array.prototype.forEach.call(pres, pre => {
-        if (pre.style.display === 'none') {
+    for (let i = 0; i < pres.length; i++) {
+        if (pres[i].style.display === 'none') {
             return;
         }
-        pre.classList.add('add-copy-buttons-to-pre-tags-target');
+        pres[i].setAttribute('add-copy-buttons-to-pre-tags-id', String(i));
         let btn = d.createElement('button');
         btn.innerHTML = '<i class="material-icons">content_copy</i><span class="add-copy-buttons-to-pre-tags-balloon"><span>Copy</span><span style="display:none;">Done!</span></span>';
+        btn.setAttribute('add-copy-buttons-to-pre-tags-id', String(i));
         let brightness =
-            window.getComputedStyle(pre).backgroundColor
+            window.getComputedStyle(pres[i]).backgroundColor
                 .match(/[0-9]+\.?[0-9]*/g)
                 .reduce((avg, str) => {return avg + Number(str)/3}, 0);
         if (brightness < 128) {
@@ -156,15 +158,15 @@ button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tag
         btn.tabIndex = -1;
         btn.addEventListener('click', copyPreContent, false);
         btn.addEventListener('blur', resetBalloon, false);
-        let parent = pre.parentElement;
+        let parent = pres[i].parentElement;
         if (window.getComputedStyle(parent).overflow !== 'visible') {
             let grandparent = parent.parentElement;
             grandparent.classList.add('add-copy-buttons-to-pre-tags-parent');
             grandparent.insertBefore(btn, parent);
         } else {
             parent.classList.add('add-copy-buttons-to-pre-tags-parent');
-            parent.insertBefore(btn, pre);
+            parent.insertBefore(btn, pres[i]);
         }
-    });
-    d.getSelection().empty();
+    }
 })(document);
+
