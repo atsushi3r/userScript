@@ -21,8 +21,7 @@
     let linkMaterialIcon = d.createElement('link');
     linkMaterialIcon.setAttribute('rel', 'stylesheet');
     linkMaterialIcon.setAttribute('href', 'https://fonts.googleapis.com/icon?family=Material+Icons');
-    let head = d.getElementsByTagName('head')[0];
-    head.appendChild(linkMaterialIcon);
+    d.head.appendChild(linkMaterialIcon);
     let style = d.createElement('style');
     style.innerHTML = `
 .add-copy-buttons-to-pre-tags-parent {
@@ -120,7 +119,7 @@ button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tag
 }
 
 `;
-    head.appendChild(style);
+    d.head.appendChild(style);
 
     function copyPreContent(event) {
         event.preventDefault();
