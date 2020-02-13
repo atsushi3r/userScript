@@ -36,6 +36,9 @@ button.add-copy-buttons-to-pre-tags-btn {
     box-shadow: none;
     white-space: nowrap;
     line-height: 1;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
     margin: 5px;
     overflow: visible;
     outline: none;
