@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Add Copy Buttons to Pre Tags
 // @namespace    add_copy_buttons_to_pre_tags
-// @version      1.3
+// @version      1.4
 // @description  Add copy buttons to pre tags
 // @author       atsushi3r
 // @match        *://*/*
@@ -169,4 +169,3 @@ button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tag
         }
     }
 })(document);
-
