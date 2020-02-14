@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Add Copy Buttons to Pre Tags
 // @namespace    add_copy_buttons_to_pre_tags
-// @version      1.6
+// @version      1.6.2
 // @description  Add copy buttons to pre tags
 // @author       atsushi3r
 // @match        *://*/*
@@ -31,10 +31,12 @@ button.add-copy-buttons-to-pre-tags-btn {
     background: none;
     box-shadow: none;
     white-space: nowrap;
+    font-size: 18px;
     line-height: 1;
-    min-width: 0;
+    height: 22px;
     min-height: 0;
-    padding: 0;
+    min-width: 0;
+    padding: 2px;
     margin: 5px;
     overflow: visible;
     outline: none;
@@ -67,9 +69,8 @@ button.add-copy-buttons-to-pre-tags-btn.dark:active, button.add-copy-buttons-to-
 
 button.add-copy-buttons-to-pre-tags-btn > svg {
     fill: currentColor;
-    width: 22px;
-    height: 22px;
-    padding: 2px;
+    width: 18px;
+    height: 18px;
 }
 
 span.add-copy-buttons-to-pre-tags-balloon {
