@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Add Copy Buttons to Pre Tags
 // @namespace    add_copy_buttons_to_pre_tags
-// @version      1.4
+// @version      1.5
 // @description  Add copy buttons to pre tags
 // @author       atsushi3r
 // @match        *://*/*
@@ -18,10 +18,6 @@
         return;
     }
 
-    let linkMaterialIcon = d.createElement('link');
-    linkMaterialIcon.setAttribute('rel', 'stylesheet');
-    linkMaterialIcon.setAttribute('href', 'https://fonts.googleapis.com/icon?family=Material+Icons');
-    d.head.appendChild(linkMaterialIcon);
     let style = d.createElement('style');
     style.innerHTML = `
 .add-copy-buttons-to-pre-tags-parent {
@@ -69,8 +65,10 @@ button.add-copy-buttons-to-pre-tags-btn.dark:active, button.add-copy-buttons-to-
     color:#aaa;
 }
 
-button.add-copy-buttons-to-pre-tags-btn > i.material-icons {
-    font-size: 18px;
+button.add-copy-buttons-to-pre-tags-btn > svg {
+    fill: currentColor;
+    width: 18px;
+    height: 18px;
     padding: 2px;
 }
 
@@ -146,7 +144,7 @@ button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tag
         }
         pres[i].setAttribute('add-copy-buttons-to-pre-tags-id', String(i));
         let btn = d.createElement('button');
-        btn.innerHTML = '<i class="material-icons">content_copy</i><span class="add-copy-buttons-to-pre-tags-balloon"><span>Copy</span><span style="display:none;">Done!</span></span>';
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg><span class="add-copy-buttons-to-pre-tags-balloon"><span>Copy</span><span style="display:none;">Done!</span></span>';
         btn.setAttribute('add-copy-buttons-to-pre-tags-id', String(i));
         let brightness =
             window.getComputedStyle(pres[i]).backgroundColor
