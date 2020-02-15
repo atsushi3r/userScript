@@ -37,6 +37,8 @@ button.add-copy-buttons-to-pre-tags-btn {
     min-height: 0;
     min-width: 0;
     margin: 5px;
+    padding-top: 0;
+    padding-bottom: 0;
     overflow: visible;
     outline: none;
     z-index: 9;
@@ -163,11 +165,11 @@ button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tag
         if (window.getComputedStyle(parent).overflow !== 'visible') {
             let grandparent = parent.parentElement;
             grandparent.classList.add('add-copy-buttons-to-pre-tags-parent');
-            btn.style.marginRight = window.getComputedStyle(grandparent).paddingRight;
+            btn.style.marginRight = parseInt(window.getComputedStyle(grandparent).paddingRight) + 5 + 'px';
             grandparent.insertBefore(btn, parent);
         } else {
             parent.classList.add('add-copy-buttons-to-pre-tags-parent');
-            btn.style.marginRight = window.getComputedStyle(parent).paddingRight;
+            btn.style.marginRight = parseInt(window.getComputedStyle(parent).paddingRight) + 5 + 'px';
             parent.insertBefore(btn, pres[i]);
         }
     }
