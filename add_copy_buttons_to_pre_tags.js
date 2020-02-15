@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Add Copy Buttons to Pre Tags
 // @namespace    add_copy_buttons_to_pre_tags
-// @version      1.6.2
+// @version      1.6.3
 // @description  Add copy buttons to pre tags
 // @author       atsushi3r
 // @match        *://*/*
@@ -36,7 +36,6 @@ button.add-copy-buttons-to-pre-tags-btn {
     height: 22px;
     min-height: 0;
     min-width: 0;
-    padding: 2px;
     margin: 5px;
     overflow: visible;
     outline: none;
@@ -71,6 +70,7 @@ button.add-copy-buttons-to-pre-tags-btn > svg {
     fill: currentColor;
     width: 18px;
     height: 18px;
+    margin: 2px;
 }
 
 span.add-copy-buttons-to-pre-tags-balloon {
@@ -163,9 +163,11 @@ button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tag
         if (window.getComputedStyle(parent).overflow !== 'visible') {
             let grandparent = parent.parentElement;
             grandparent.classList.add('add-copy-buttons-to-pre-tags-parent');
+            btn.style.marginRight = window.getComputedStyle(grandparent).paddingRight;
             grandparent.insertBefore(btn, parent);
         } else {
             parent.classList.add('add-copy-buttons-to-pre-tags-parent');
+            btn.style.marginRight = window.getComputedStyle(parent).paddingRight;
             parent.insertBefore(btn, pres[i]);
         }
     }
