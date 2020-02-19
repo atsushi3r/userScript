@@ -7,10 +7,9 @@
 // @match        *://*/*
 // @grant        none
 // @run-at       document-start
-// @noframes
 // ==/UserScript==
 
-window.onload = function () {
+window.addEventListener('load', function () {
     'use strict';
     console.log('UserScript: Add Copy Buttons to Pre Tags');
     let pres = document.getElementsByTagName('pre');
@@ -173,4 +172,4 @@ button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tag
             parent.insertBefore(btn, pres[i]);
         }
     }
-}
+});
