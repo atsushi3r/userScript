@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Add Copy Buttons to Pre Tags
 // @namespace    add_copy_buttons_to_pre_tags
-// @version      1.6.3
+// @version      1.6.4
 // @description  Add copy buttons to pre tags
 // @author       atsushi3r
 // @match        *://*/*
@@ -101,6 +101,11 @@ button.add-copy-buttons-to-pre-tags-btn.light > span.add-copy-buttons-to-pre-tag
 button.add-copy-buttons-to-pre-tags-btn:hover > span.add-copy-buttons-to-pre-tags-balloon {
     display: block;
     opacity: 1;
+}
+
+span.add-copy-buttons-to-pre-tags-balloon > span {
+    color: inherit;
+    background: inherit;
 }
 
 @keyframes show-balloon {
