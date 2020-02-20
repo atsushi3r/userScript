@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Add Copy Buttons to Pre Tags
 // @namespace    add_copy_buttons_to_pre_tags
-// @version      1.6.4
+// @version      1.7.1
 // @description  Add copy buttons to pre tags
 // @author       atsushi3r
 // @match        *://*/*
@@ -76,13 +76,13 @@ button.add-copy-buttons-to-pre-tags-btn > svg {
 
 span.add-copy-buttons-to-pre-tags-balloon {
     font-size: 12px;
+    line-height: 1;
     position: absolute;
     top: 0;
     left: -50px;
     width: 45px;
     display: none;
     padding: 5px;
-    margin-top: 1px;
     opacity: 0;
     border-radius: 5px;
     animation: 0.3s ease show-balloon;
@@ -138,11 +138,13 @@ span.add-copy-buttons-to-pre-tags-balloon > span {
         document.getSelection().empty();
         this.querySelector('span > span:first-child').style.display = 'none';
         this.querySelector('span > span:last-child').style.display = 'block';
+        this.blur();
+        window.setTimeout(resetBalloon, 1500, this);
     }
 
-    function resetBalloon(event) {
-        this.querySelector('span > span:first-child').style.display = 'block';
-        this.querySelector('span > span:last-child').style.display = 'none';
+    function resetBalloon(btn) {
+        btn.querySelector('span > span:first-child').style.display = 'block';
+        btn.querySelector('span > span:last-child').style.display = 'none';
     }
 
     for (let i = 0; i < pres.length; i++) {
@@ -151,7 +153,7 @@ span.add-copy-buttons-to-pre-tags-balloon > span {
         }
         pres[i].setAttribute('add-copy-buttons-to-pre-tags-id', String(i));
         let btn = document.createElement('button');
-        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg><span class="add-copy-buttons-to-pre-tags-balloon"><span>Copy</span><span style="display:none;">Done!</span></span>';
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg><span class="add-copy-buttons-to-pre-tags-balloon"><span style="font-size:12px;line-height:1;">Copy</span><span style="font-size:12px;line-height:1;display:none;">Done!</span></span>';
         btn.setAttribute('add-copy-buttons-to-pre-tags-id', String(i));
         let brightness =
             window.getComputedStyle(pres[i]).backgroundColor
@@ -166,15 +168,17 @@ span.add-copy-buttons-to-pre-tags-balloon > span {
         btn.addEventListener('click', copyPreContent, false);
         btn.addEventListener('blur', resetBalloon, false);
         let parent = pres[i].parentElement;
+        let adjacent = pres[i];
         if (window.getComputedStyle(parent).overflow !== 'visible') {
-            let grandparent = parent.parentElement;
-            grandparent.classList.add('add-copy-buttons-to-pre-tags-parent');
-            btn.style.marginRight = parseInt(window.getComputedStyle(grandparent).paddingRight) + 5 + 'px';
-            grandparent.insertBefore(btn, parent);
-        } else {
-            parent.classList.add('add-copy-buttons-to-pre-tags-parent');
-            btn.style.marginRight = parseInt(window.getComputedStyle(parent).paddingRight) + 5 + 'px';
-            parent.insertBefore(btn, pres[i]);
+            adjacent = parent;
+            parent = parent.parentElement;
         }
+        parent.classList.add('add-copy-buttons-to-pre-tags-parent');
+        let parent_padding =
+                parseInt(window.getComputedStyle(parent).paddingRight);
+        let pre_margin =
+                parseInt(window.getComputedStyle(pres[i]).marginRight);
+        btn.style.marginRight = parent_padding + pre_margin + 5 + 'px';
+        parent.insertBefore(btn, adjacent);
     }
 });
