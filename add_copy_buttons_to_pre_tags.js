@@ -125,7 +125,6 @@ span.add-copy-buttons-to-pre-tags-balloon > span {
         left: -50px;
     }
 }
-
 `;
     document.head.appendChild(style);
 
