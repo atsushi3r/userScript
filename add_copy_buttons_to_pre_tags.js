@@ -9,7 +9,7 @@
 // @run-at       document-start
 // ==/UserScript==
 
-window.addEventListener('load', function () {
+window.addEventListener('DOMContentLoaded', function () {
     'use strict';
     console.log('UserScript: Add Copy Buttons to Pre Tags');
     let pres = document.getElementsByTagName('pre');
