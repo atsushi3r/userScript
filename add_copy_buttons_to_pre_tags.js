@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Add Copy Buttons to Pre Tags
 // @namespace    add_copy_buttons_to_pre_tags
-// @version      1.8
+// @version      1.8.2
 // @description  Add copy buttons to pre tags
 // @author       atsushi3r
 // @match        *://*/*
@@ -9,7 +9,7 @@
 // @run-at       document-start
 // ==/UserScript==
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
     'use strict';
     console.log('UserScript: Add Copy Buttons to Pre Tags');
     let pres = document.getElementsByTagName('pre');
@@ -178,15 +178,14 @@ span.add-copy-buttons-to-pre-tags-balloon > span {
         btn.addEventListener('click', copyPreContent, false);
         let parent = pres[i].parentElement;
         let adjacent = pres[i];
+        let marginTop = 0;
         if (window.getComputedStyle(parent).overflow !== 'visible') {
             adjacent = parent;
             parent = parent.parentElement;
+            marginTop = parseInt(window.getComputedStyle(pres[i]).marginTop);
         }
         parent.classList.add('add-copy-buttons-to-pre-tags-parent');
-        let pre_marginTop =
-                parseInt(window.getComputedStyle(pres[i]).marginTop);
-        btn.style.marginTop =
-                pre_marginTop + 5 + 'px';
+        btn.style.marginTop = marginTop + 5 + 'px';
         let parent_paddingRight =
                 parseInt(window.getComputedStyle(parent).paddingRight);
         let pre_marginRight =
